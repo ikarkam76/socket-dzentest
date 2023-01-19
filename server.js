@@ -5,12 +5,21 @@ const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
 
+app.use(express.json());
+
+
+app.post("/", (req, res) => {
+    res.send('post hello')
+});
+
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
 io.on("connection", (socket) => {
-  console.log("user connected");
+  socket.on('comment', (msg) => {
+        io.emit('comment', msg);
+    })
 });
 
 server.listen(8080, (err) => {
