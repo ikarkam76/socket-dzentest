@@ -23,7 +23,7 @@
       "react-app"
     ]
   },
-  "proxy": "https://commentsappbackend.onrender.com",
+  "proxy": "http://localhost:8080",
   "browserslist": {
     "production": [
       ">0.2%",

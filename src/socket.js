@@ -1,6 +1,6 @@
-import io from "socket.io-client";
-const BASE_URL = process.env.BASE_URL;
+import React from 'react';
+import socketio from "socket.io-client";
+const BASE_URL = process.env.BASE_URL
 
-const socket = io(BASE_URL);
-
-export default socket;
+export const socket = socketio.connect(BASE_URL);
+export const SocketContext = React.createContext();

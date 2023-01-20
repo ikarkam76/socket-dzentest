@@ -1,13 +1,12 @@
-import './App.css';
-import { Comments } from './components/Comments';
-
+import { SocketContext, socket } from "./socket";
+import "./App.css";
+import { Comments } from "./components/Comments";
 
 function App() {
-
   return (
-    <div className="App">
+    <SocketContext.Provider value={socket}>
       <Comments />
-    </div>
+    </SocketContext.Provider>
   );
 }
 

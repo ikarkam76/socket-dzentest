@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { SocketContext } from "../socket";
 import { CommentsList } from "./CommentsList";
 import { Box, Input, Button, Modal, IconButton} from "@mui/material";
-import socket from "../socket";
 import { CheckRounded, CodeRounded, CommentRounded, SendRounded } from "@mui/icons-material";
 
 const style = {
@@ -18,6 +18,7 @@ const style = {
 };
 
 export const Comments = () => {
+  const socket = useContext(SocketContext);
   const [open, setOpen] = useState(false);
   const [comment, setComment] = useState({});
   const handleOpen = () => setOpen(true);

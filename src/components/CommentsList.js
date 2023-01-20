@@ -1,18 +1,17 @@
 import { Box, List, ListItem, Accordion, AccordionSummary, Typography,AccordionDetails, IconButton } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState, useContext, useEffect } from "react";
+import { SocketContext } from "../socket";
 import { AccountCircleRounded, ReplyRounded, ExpandMoreRounded } from "@mui/icons-material";
-import socket from "../socket";
 
 export const CommentsList = () => {
-  const [comments, setComments] = useState([{user: 'ivan', email:'Oleg@jgjg.fjff', time: '2022.225.25'}]);
+  const socket = useContext(SocketContext);
+  const [comments, setComments] = useState([]);
 
         useEffect(() => {
           socket.on("comment", (msg) => {
             setComments(prev => [...prev, msg])
           });
-        },[]);
-
-
+        },[socket]);
 
   return (
     <Box>
