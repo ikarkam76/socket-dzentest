@@ -6,9 +6,8 @@ axios.defaults.withCredentials = true;
 
 export const getComments = async () => {
     try {
-        const responce = await axios.get('/api');
-        console.log(responce);
-        return responce;
+        const { data } = await axios.get('/api');
+       return data.result;
     } catch (err) {
         console.log((err.message));
     }
@@ -17,7 +16,7 @@ export const getComments = async () => {
 export const sendComments = async (commentToSend) => {
     try {
         await axios.post('/api', commentToSend);
-        await getComments();
+        console.log('comment sended!');
     } catch (err) {
         console.log(err.message);
     }

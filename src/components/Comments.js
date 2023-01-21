@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import { SocketContext } from "../socket";
 import { CommentsList } from "./CommentsList";
 import { Box, Input, Button, Modal, IconButton} from "@mui/material";
-import { CheckRounded, CodeRounded, CommentRounded, SendRounded } from "@mui/icons-material";
+import { CheckRounded, CodeRounded, CommentRounded } from "@mui/icons-material";
 import { sendComments } from "../services/operations";
 
 const style = {
@@ -126,9 +126,9 @@ export const Comments = () => {
             <IconButton aria-label="check">
               <CheckRounded fontSize="small" />
             </IconButton>
-            <IconButton aria-label="check" onClick={handleSendComment}>
-              <SendRounded color="primary" fontSize="large" />
-            </IconButton>
+            <Button variant="contained" onClick={handleSendComment}>
+              Send
+            </Button>
           </Box>
         </Modal>
       </>
