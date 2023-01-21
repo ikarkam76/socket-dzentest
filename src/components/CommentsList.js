@@ -28,14 +28,14 @@ export const CommentsList = () => {
                 >
                   <AccountCircleRounded />
                   <Typography style={{ marginLeft: "10px" }}>
-                    {item.user}
+                    {item.user_name}
                   </Typography>
                   <Typography style={{ marginLeft: "10px" }}>
                     {item.time}
                   </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                  <Typography>{item.text}</Typography>
+                  <Typography>{item.comment}</Typography>
                   <IconButton>
                     <ReplyRounded />
                   </IconButton>

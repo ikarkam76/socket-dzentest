@@ -1,8 +1,10 @@
 import { useState, useContext } from "react";
+import { v4 as uuidv4 } from "uuid";
 import { SocketContext } from "../socket";
 import { CommentsList } from "./CommentsList";
 import { Box, Input, Button, Modal, IconButton} from "@mui/material";
 import { CheckRounded, CodeRounded, CommentRounded, SendRounded } from "@mui/icons-material";
+import { sendComments } from "../services/operations";
 
 const style = {
   position: "absolute",
@@ -27,7 +29,10 @@ export const Comments = () => {
     const handleSendComment = (e) => {
       e.preventDefault();
       const time = new Date().toLocaleString();
-      socket.emit("comment", {...comment, ...{time: time}});
+      const id = uuidv4();
+      const commentToSend = { ...comment, ...{ id, time }};
+      socket.emit("comment", commentToSend);
+      sendComments(commentToSend);
       setComment("");
       handleClose();
     };
@@ -37,7 +42,7 @@ export const Comments = () => {
       switch (name) {
         case "user":
           setComment((prev) => {
-            return { ...prev, ...{ user: value } };
+            return { ...prev, ...{ user_name: value } };
           });
           break;
         case "email":
@@ -47,12 +52,12 @@ export const Comments = () => {
           break;
         case "home":
           setComment((prev) => {
-            return { ...prev, ...{ home: value } };
+            return { ...prev, ...{ home_page: value } };
           });
           break;
         case "text":
           setComment((prev) => {
-            return { ...prev, ...{ text: value } };
+            return { ...prev, ...{ comment: value } };
           });
           break;
         default:
