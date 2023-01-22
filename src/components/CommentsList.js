@@ -1,15 +1,18 @@
 import { Box, List, ListItem, Accordion, AccordionSummary, Typography,AccordionDetails, IconButton } from "@mui/material";
 import { useState, useContext, useEffect } from "react";
+import { getComments } from "../services/operations";
 import { SocketContext } from "../socket";
 import { AccountCircleRounded, ReplyRounded, ExpandMoreRounded } from "@mui/icons-material";
+import { ReplysList } from "./ReplysList";
 
 export const CommentsList = () => {
   const socket = useContext(SocketContext);
   const [comments, setComments] = useState([]);
 
-        useEffect(() => {
+  useEffect(() => {
+    getComments().then((res) => setComments(res));
           socket.on("comment", (msg) => {
-            setComments(prev => [...prev, msg])
+            setComments(prev => [...prev, msg]);
           });
         },[socket]);
 
@@ -39,6 +42,7 @@ export const CommentsList = () => {
                   <IconButton>
                     <ReplyRounded />
                   </IconButton>
+                  <ReplysList commentId={item.id} />
                 </AccordionDetails>
               </Accordion>
             </ListItem>

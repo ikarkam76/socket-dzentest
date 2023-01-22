@@ -21,3 +21,21 @@ export const sendComments = async (commentToSend) => {
         console.log(err.message);
     }
 }
+
+export const getReplys = async () => {
+  try {
+    const { data } = await axios.get("/api/reply");
+    return data.result;
+  } catch (err) {
+    console.log(err.message);
+  }
+};
+
+export const sendReply = async (commentToSend) => {
+  try {
+    await axios.post("/api/reply", commentToSend);
+    console.log("reply sended!");
+  } catch (err) {
+    console.log(err.message);
+  }
+};

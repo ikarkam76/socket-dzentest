@@ -23,8 +23,8 @@ export const CommentsTable = () => {
       <DataGrid
         rows={rows}
         columns={columns}
-        pageSize={25}
-        rowsPerPageOptions={[25]}
+        pageSize={5}
+        rowsPerPageOptions={[5]}
       />
     </div>
   );
