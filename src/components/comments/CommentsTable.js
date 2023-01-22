@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { getComments } from "../services/operations";
+import { getComments } from "../../services/operations";
 
 const columns = [
   { field: 'time', headerName: 'Time', width: 200 },

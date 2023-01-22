@@ -1,8 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 import { SocketContext, socket } from "./socket";
-import { Comments } from "./components/Comments";
+import { Comments } from "./components/comments/Comments";
 import { CommentsBar } from "./components/AppBar";
-import { CommentsTable } from './components/CommentsTable'
+import { CommentsTable } from './components/comments/CommentsTable'
 
 
 function App() {
