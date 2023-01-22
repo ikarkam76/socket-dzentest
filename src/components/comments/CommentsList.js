@@ -5,7 +5,7 @@ import { useFormik } from "formik";
 import { v4 as uuidv4 } from "uuid";
 import { sendReply } from "../../services/operations";
 import { commentSchema } from "../../services/validation";
-import { Form, Input } from "./Form.styled";
+import { Form, FormInput } from "./Form.styled";
 
 import { SocketContext } from "../../socket";
 import { AccountCircleRounded, ReplyRounded, ExpandMoreRounded } from "@mui/icons-material";
@@ -100,7 +100,7 @@ export const CommentsList = () => {
                   >
                     <Box sx={style}>
                       <Form onSubmit={formik.handleSubmit}>
-                        <Input
+                        <FormInput
                           id="user_name"
                           required
                           label={"User name"}
@@ -109,7 +109,7 @@ export const CommentsList = () => {
                           onChange={formik.handleChange}
                           value={formik.values.user_name}
                         />
-                        <Input
+                        <FormInput
                           id="email"
                           label={"Email"}
                           variant="standard"
@@ -124,7 +124,7 @@ export const CommentsList = () => {
                             formik.errors.email
                           }
                         />
-                        <Input
+                        <FormInput
                           id="home_page"
                           label={"Home page"}
                           variant="standard"
@@ -132,7 +132,7 @@ export const CommentsList = () => {
                           onChange={formik.handleChange}
                           value={formik.values.home_page}
                         />
-                        <Input
+                        <FormInput
                           id="comment"
                           required
                           label={"Comment"}

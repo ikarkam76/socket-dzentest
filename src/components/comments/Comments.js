@@ -4,10 +4,10 @@ import { v4 as uuidv4 } from "uuid";
 import { commentSchema } from "../../services/validation";
 import { SocketContext } from "../../socket";
 import { CommentsList } from "./CommentsList";
-import { Box, Button, Modal, IconButton} from "@mui/material";
-import { CheckRounded, CodeRounded, CommentRounded } from "@mui/icons-material";
-import { sendComments } from "../../services/operations";
-import { Form, Input } from "./Form.styled";
+import { Box, Button, Modal } from "@mui/material";
+import { CommentRounded } from "@mui/icons-material";
+import { sendComments, uploadFile } from "../../services/operations";
+import { FileInput, Form, FormInput } from "./Form.styled";
 
 const style = {
   position: "absolute",
@@ -25,6 +25,7 @@ const style = {
 export const Comments = () => {
   const socket = useContext(SocketContext);
   const [open, setOpen] = useState(false);
+  const [file, setFile] = useState(null);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -42,6 +43,7 @@ export const Comments = () => {
       const commentToSend = { ...values, ...{ time } };
       socket.emit("comments", commentToSend);
       sendComments(commentToSend);
+      uploadFile(file, values.id);
       handleClose();
       resetForm();
     },
@@ -53,7 +55,7 @@ export const Comments = () => {
         <Button
           variant="contained"
           onClick={handleOpen}
-          style={{
+          style={{ 
             position: "fixed",
             bottom: "5%",
             right: "5%",
@@ -69,7 +71,7 @@ export const Comments = () => {
         >
           <Box sx={{ ...style, "& .MuiInput-root": { m: 0.5, width: "100%" } }}>
             <Form onSubmit={formik.handleSubmit}>
-              <Input
+              <FormInput
                 id="user_name"
                 required
                 label={"User name"}
@@ -78,7 +80,7 @@ export const Comments = () => {
                 onChange={formik.handleChange}
                 value={formik.values.user_name}
               />
-              <Input
+              <FormInput
                 id="email"
                 label={"Email"}
                 variant="standard"
@@ -93,7 +95,7 @@ export const Comments = () => {
                   formik.errors.email
                 }
               />
-              <Input
+              <FormInput
                 id="home_page"
                 label={"Home page"}
                 variant="standard"
@@ -101,7 +103,7 @@ export const Comments = () => {
                 onChange={formik.handleChange}
                 value={formik.values.home_page}
               />
-              <Input
+              <FormInput
                 id="comment"
                 required
                 label={"Comment"}
@@ -110,13 +112,17 @@ export const Comments = () => {
                 onChange={formik.handleChange}
                 value={formik.values.comment}
               />
-              <IconButton aria-label="html">
-                <CodeRounded fontSize="small" />
-              </IconButton>
-              <IconButton aria-label="check">
-                <CheckRounded fontSize="small" />
-              </IconButton>
-              <Button variant="contained" type="submit">
+              <FileInput
+                type="file"
+                name="file"
+                accept=".txt, image/png, image/jpeg, image/gif"
+                onChange={(e)=> setFile(e.target.files[0])}
+              />
+              <Button
+                variant="contained"
+                type="submit"
+                sx={{ marginTop: "5px" }}
+              >
                 Send
               </Button>
             </Form>

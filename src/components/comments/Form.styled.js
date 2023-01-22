@@ -7,7 +7,7 @@ export const Form = styled.form`
   margin: 0 auto;
 `; 
 
-export const Input = styled(TextField)`
+export const FormInput = styled(TextField)`
   & input {
     padding-bottom: 20px;
     padding-top: 20px;
@@ -36,4 +36,9 @@ export const Input = styled(TextField)`
     text-align: right;
     color: 'black';
   }
+`;
+
+export const FileInput = styled.input`
+margin-top: 10px;
+margin-bottom: 10px;
 `;

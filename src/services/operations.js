@@ -14,7 +14,7 @@ export const getComments = async () => {
 };
 
 export const sendComments = async (commentToSend) => {
-    try {
+  try {
         await axios.post('/api', commentToSend);
         console.log('comment sended!');
     } catch (err) {
@@ -39,3 +39,14 @@ export const sendReply = async (commentToSend) => {
     console.log(err.message);
   }
 };
+
+export const uploadFile = async (file, id) => {
+  try {
+    const formData = new FormData();
+    formData.append('file', file);
+    const { data } = await axios.post('/api/upload', formData);
+    await axios.post('/api/files', {file: data, comment_id: id})
+  } catch (error) {
+    console.log(error.message);
+  }
+}
