@@ -38,11 +38,12 @@ export const Comments = () => {
     validationSchema: commentSchema,
     onSubmit: (values, { resetForm }) => {
       const time = new Date();
-      const commentToSend = { ...values, ...{ time, id: values.user_name + time } };
+      const id = values.user_name + time;
+      const commentToSend = { ...values, ...{ time, id } };
       socket.emit("comments", commentToSend);
       sendComments(commentToSend);
       if (file) {
-        uploadFile(file, values.id);
+        uploadFile(file, id);
       }
       handleClose();
       resetForm();

@@ -33,7 +33,7 @@ export const ReplysList = ({ commentId }) => {
           ) : (
             replysList.map((item, i) => {
               return (
-                <Item key={item.id}>
+                <Item key={i}>
                   <Box sx={{ width: "100%", backgroundColor: "#90caf9" }}>
                     {item.user_name} {item.time}
                   </Box>
