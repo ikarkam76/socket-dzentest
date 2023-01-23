@@ -38,7 +38,7 @@ export const Comments = () => {
     validationSchema: commentSchema,
     onSubmit: (values, { resetForm }) => {
       const time = new Date();
-      const id = values.user_name + time;
+      const id = Date.now() + values.user_name;
       const commentToSend = { ...values, ...{ time, id } };
       socket.emit("comments", commentToSend);
       sendComments(commentToSend);

@@ -15,7 +15,6 @@ export const getComments = async () => {
 
 export const sendComments = async (commentToSend) => {
   try {
-    console.log(commentToSend);
         await axios.post('/api', commentToSend);
         console.log('comment sended!');
     } catch (err) {
@@ -46,12 +45,15 @@ export const uploadFile = async (file, id) => {
   try {
     const formData = new FormData();
     formData.append("file", file);
-    const [ _, ext] = file.name.split(".");
-    const { data } = await axios.post("/api/upload", formData);
+    const [name, ext] = file.name.split(".");
     if (ext === "txt") {
-      await axios.post("/api/files", { file: data, parentId: id });
+      const responce = await axios.post("/api/upload/file", formData);
+      console.log(responce);
+      await axios.post("/api/files", { file: responce, parentId: id });
     } else {
-      await axios.post("/api/images", { image: data, parentId: id });
+      const { data } = await axios.post("/api/upload/image", formData);
+      console.log(data.image);
+      await axios.post("/api/images", { image: 'gol',  parentId: id });
     }
   } catch (error) {
     console.log(error.message);
