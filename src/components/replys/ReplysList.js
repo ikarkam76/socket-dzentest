@@ -15,7 +15,7 @@ const Item = styled(Paper)(({ theme }) => ({
 export const ReplysList = ({ commentId }) => {
   const socket = useContext(SocketContext);
   const [replys, setReplys] = useState([]);
-  const replysList = replys.filter((item) => item.comment_id === commentId);
+  const replysList = replys.filter((item) => item.parentId === commentId);
 
     useEffect(() => {
         getReplys()

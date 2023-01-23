@@ -1,6 +1,5 @@
 import { useState, useContext } from "react";
 import { useFormik } from "formik";
-import { v4 as uuidv4 } from "uuid";
 import { commentSchema } from "../../services/validation";
 import { SocketContext } from "../../socket";
 import { CommentsList } from "./CommentsList";
@@ -31,19 +30,21 @@ export const Comments = () => {
 
   const formik = useFormik({
     initialValues: {
-      id: uuidv4(),
       user_name: "",
       email: "",
-      home_page: '',
+      home_page: "",
       comment: "",
     },
     validationSchema: commentSchema,
     onSubmit: (values, { resetForm }) => {
       const time = new Date();
-      const commentToSend = { ...values, ...{ time } };
+      const commentToSend = { ...values, ...{ time, id: values.user_name + time } };
       socket.emit("comments", commentToSend);
       sendComments(commentToSend);
-      uploadFile(file, values.id);
+      if (file) {
+        uploadFile(file, values.id);
+      }
+      
       handleClose();
       resetForm();
     },
@@ -54,7 +55,9 @@ export const Comments = () => {
         <CommentsList />
         <Button
           variant="contained"
-          onClick={handleOpen}
+          onClick={() => {
+            handleOpen();
+          }}
           style={{ 
             position: "fixed",
             bottom: "5%",

@@ -2,7 +2,6 @@ import { Box, List, ListItem, Accordion, AccordionSummary, Typography,AccordionD
 import { useState, useContext, useEffect } from "react";
 import { getComments } from "../../services/operations";
 import { useFormik } from "formik";
-import { v4 as uuidv4 } from "uuid";
 import { sendReply } from "../../services/operations";
 import { commentSchema } from "../../services/validation";
 import { Form, FormInput } from "./Form.styled";
@@ -41,7 +40,6 @@ export const CommentsList = () => {
   
     const formik = useFormik({
       initialValues: {
-        id: uuidv4(),
         user_name: "",
         email: "",
         home_page: '',
@@ -49,9 +47,9 @@ export const CommentsList = () => {
       },
       validationSchema: commentSchema,
       onSubmit: (values, { resetForm }) => {
-        const comment_id = commentId;
+        const parentId = commentId;
         const time = new Date();
-        const replyToSend = { ...values, ...{ time, comment_id } };
+        const replyToSend = { ...values, ...{ time, parentId } };
         socket.emit('replys', replyToSend);
         sendReply(replyToSend);
         handleClose();
