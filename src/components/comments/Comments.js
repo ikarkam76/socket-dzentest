@@ -44,7 +44,6 @@ export const Comments = () => {
       if (file) {
         uploadFile(file, values.id);
       }
-      
       handleClose();
       resetForm();
     },

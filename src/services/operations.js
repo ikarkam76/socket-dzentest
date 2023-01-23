@@ -15,6 +15,7 @@ export const getComments = async () => {
 
 export const sendComments = async (commentToSend) => {
   try {
+    console.log(commentToSend);
         await axios.post('/api', commentToSend);
         console.log('comment sended!');
     } catch (err) {
