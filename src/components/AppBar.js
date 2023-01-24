@@ -17,6 +17,14 @@ export const CommentsBar = () => {
             <Button variant="outlined" color="inherit">
               <NavLink
                 style={{ textDecoration: "none", color: "inherit" }}
+                to={"/images"}
+              >
+                Images
+              </NavLink>
+            </Button>
+            <Button variant="outlined" color="inherit">
+              <NavLink
+                style={{ textDecoration: "none", color: "inherit" }}
                 to={"/comments"}
               >
                 Comments

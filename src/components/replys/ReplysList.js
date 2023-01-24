@@ -28,9 +28,7 @@ export const ReplysList = ({ commentId }) => {
     return (
       <Box sx={{ width: "100%" }}>
         <Stack>
-          {!replysList[0] ? (
-            <></>
-          ) : (
+          {replysList[0] && (
             replysList.map((item, i) => {
               return (
                 <Item key={i}>
