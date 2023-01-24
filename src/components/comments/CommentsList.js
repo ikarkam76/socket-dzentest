@@ -27,6 +27,7 @@ export const CommentsList = () => {
   const socket = useContext(SocketContext);
   const [comments, setComments] = useState([]);
   const [open, setOpen] = useState(false);
+  const [expanded, setExpanded] = useState(true);
   const [commentId, setCommentId] = useState('');
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -65,7 +66,11 @@ export const CommentsList = () => {
           const {id, user_name, time, comment } = item;
           return (
             <ListItem key={id}>
-              <Accordion style={{ width: "100%" }}>
+              <Accordion
+                style={{ width: "100%" }}
+                expanded={expanded}
+                onChange={() => setExpanded(!expanded)}
+              >
                 <AccordionSummary
                   expandIcon={<ExpandMoreRounded />}
                   aria-controls="panel1a-content"
