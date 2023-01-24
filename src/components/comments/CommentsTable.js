@@ -21,10 +21,15 @@ export const CommentsTable = () => {
   return (
     <div style={{ height: 400, width: "100%" }}>
       <DataGrid
+        initialState={{
+          sorting: {
+            sortModel: [{ field: "time", sort: "desc" }],
+          },
+        }}
         rows={rows}
         columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
+        pageSize={25}
+        rowsPerPageOptions={[25]}
       />
     </div>
   );
