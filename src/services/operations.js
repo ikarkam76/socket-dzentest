@@ -32,27 +32,15 @@ export const getReplys = async () => {
 };
 
 export const getFiles = async () => {
-  return axios
-    .get("/api/files", { responseType: "blob" })
-    .then((response) => {
-      let imageNode = document.getElementById("image");
-      let imgUrl = URL.createObjectURL(response.data);
-      imageNode.src = imgUrl;
-    })
-    .catch((error) => {
-      alert(
-        "something goes wrong! Maybe image url broken, try another img url."
-      );
+  try {
+    const response = await axios.get("/api/files", {
+      responseType: "blob",
     });
-  // try {
-  //   const response = await axios.get("/api/files", {
-  //     responseType: "arraybuffer",
-  //   });
-  //   const buffer64 = Buffer.from(response.data, "binary").toString("base64");
-  //   return buffer64;
-  // } catch (error) {
-    
-  // }
+    const imgUrl = URL.createObjectURL(response.data);
+    return imgUrl;
+  } catch (error) {
+    console.log(error.message);
+  }
 }
 
 export const sendReply = async (replyToSend) => {
