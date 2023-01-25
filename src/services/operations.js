@@ -23,6 +23,15 @@ export const sendComments = async (commentToSend) => {
     }
 }
 
+export const sendReply = async (replyToSend) => {
+  try {
+    await axios.post("/api/reply", replyToSend);
+    Report.success("Success!", "You reply sended successfully.", "Okay");
+  } catch (err) {
+    Report.failure("Something went wrong", err.message, "Okay");
+  }
+};
+
 export const getReplys = async () => {
   try {
     const { data } = await axios.get("/api/reply");
@@ -54,15 +63,6 @@ export const getFiles = async (name) => {
   }
 }
 
-export const sendReply = async (replyToSend) => {
-  try {
-    await axios.post("/api/reply", replyToSend);
-    Report.success("Success!", "You reply sended successfully.", "Okay");
-  } catch (err) {
-    Report.failure("Something went wrong", err.message, "Okay");
-  }
-};
-
 export const uploadFile = async (file, id) => {
   try {
     const formData = new FormData();
@@ -76,8 +76,6 @@ export const uploadFile = async (file, id) => {
       await axios.post("/api/images", { image: data.image, parentId: id });
     }
   } catch (error) {
-    console.log(error.message);
+    Report.failure("Something went wrong", error.message, "Okay");
   }
-
-    
 }

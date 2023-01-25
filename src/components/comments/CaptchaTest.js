@@ -9,7 +9,7 @@ import { Report } from "notiflix/build/notiflix-report-aio";
 
 
 const CaptchaTest = () => {
-  const [isDisabled, setIsDisabled] = useState(true)
+  const [isDisabled, setIsDisabled] = useState(false)
 
     useEffect(() => {
      loadCaptchaEnginge(6);
