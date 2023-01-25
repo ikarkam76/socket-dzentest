@@ -1,4 +1,4 @@
-import { Box, List, ListItem, Accordion, AccordionSummary, Typography,AccordionDetails, IconButton, Modal, Button } from "@mui/material";
+import { Box, List, ListItem, Accordion, AccordionSummary, Typography,AccordionDetails, IconButton, Modal } from "@mui/material";
 import { useState, useContext, useEffect } from "react";
 import { getComments } from "../../services/operations";
 import { useFormik } from "formik";
@@ -9,6 +9,8 @@ import { Form, FormInput } from "./Form.styled";
 import { SocketContext } from "../../socket";
 import { AccountCircleRounded, ReplyRounded, ExpandMoreRounded } from "@mui/icons-material";
 import { ReplysList } from "../replys/ReplysList";
+import CaptchaTest from "./CaptchaTest";
+
 
 const style = {
   position: "absolute",
@@ -144,9 +146,7 @@ export const CommentsList = () => {
                           onChange={formik.handleChange}
                           value={formik.values.comment}
                         />
-                        <Button variant="contained" type="submit">
-                          Send
-                        </Button>
+                        <CaptchaTest />
                       </Form>
                     </Box>
                   </Modal>

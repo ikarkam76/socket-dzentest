@@ -7,6 +7,7 @@ import { Box, Button, Modal } from "@mui/material";
 import { CommentRounded } from "@mui/icons-material";
 import { sendComments, uploadFile } from "../../services/operations";
 import { FileInput, Form, FormInput } from "./Form.styled";
+import CaptchaTest from "./CaptchaTest";
 
 const style = {
   position: "absolute",
@@ -58,7 +59,7 @@ export const Comments = () => {
           onClick={() => {
             handleOpen();
           }}
-          style={{ 
+          style={{
             position: "fixed",
             bottom: "5%",
             right: "5%",
@@ -119,15 +120,9 @@ export const Comments = () => {
                 type="file"
                 name="file"
                 accept=".txt, image/png, image/jpeg, image/gif"
-                onChange={(e)=> setFile(e.target.files[0])}
+                onChange={(e) => setFile(e.target.files[0])}
               />
-              <Button
-                variant="contained"
-                type="submit"
-                sx={{ marginTop: "5px" }}
-              >
-                Send
-              </Button>
+              <CaptchaTest />
             </Form>
           </Box>
         </Modal>
