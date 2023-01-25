@@ -63,9 +63,68 @@ export const CommentsList = () => {
 
   return (
     <Box>
+      <Modal
+        open={open}
+        aria-labelledby="modal-modal-title"
+        onClose={handleClose}
+        aria-describedby="modal-modal-description"
+      >
+        <Box
+          sx={{
+            ...style,
+            "& .MuiInput-root": { m: 0.5, width: "100%" },
+          }}
+        >
+          <Form onSubmit={formik.handleSubmit}>
+            <FormInput
+              id="user_name"
+              required
+              label={"User name"}
+              variant="standard"
+              type="user_name"
+              onChange={formik.handleChange}
+              value={formik.values.user_name}
+            />
+            <FormInput
+              id="email"
+              label={"Email"}
+              variant="standard"
+              type="email"
+              onChange={formik.handleChange}
+              placeholder="example@gmail.com"
+              value={formik.values.email}
+              error={formik.touched.email && formik.errors.email}
+              helperText={
+                formik.touched.email &&
+                formik.errors.email &&
+                formik.errors.email
+              }
+            />
+            <FormInput
+              id="home_page"
+              label={"Home page"}
+              variant="standard"
+              type="home_page"
+              onChange={formik.handleChange}
+              value={formik.values.home_page}
+            />
+            <FormInput
+              id="comment"
+              required
+              label={"Comment"}
+              variant="standard"
+              type="comment"
+              onChange={formik.handleChange}
+              value={formik.values.comment}
+            />
+            <CaptchaTest />
+          </Form>
+        </Box>
+      </Modal>
+
       <List>
         {comments.map((item, i) => {
-          const {id, user_name, time, comment } = item;
+          const { id, user_name, time, comment } = item;
           return (
             <ListItem key={id}>
               <Accordion
@@ -97,59 +156,6 @@ export const CommentsList = () => {
                   >
                     <ReplyRounded />
                   </IconButton>
-                  <Modal
-                    open={open}
-                    onClose={handleClose}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                  >
-                    <Box sx={style}>
-                      <Form onSubmit={formik.handleSubmit}>
-                        <FormInput
-                          id="user_name"
-                          required
-                          label={"User name"}
-                          variant="standard"
-                          type="user_name"
-                          onChange={formik.handleChange}
-                          value={formik.values.user_name}
-                        />
-                        <FormInput
-                          id="email"
-                          label={"Email"}
-                          variant="standard"
-                          type="email"
-                          onChange={formik.handleChange}
-                          placeholder="example@gmail.com"
-                          value={formik.values.email}
-                          error={formik.touched.email && formik.errors.email}
-                          helperText={
-                            formik.touched.email &&
-                            formik.errors.email &&
-                            formik.errors.email
-                          }
-                        />
-                        <FormInput
-                          id="home_page"
-                          label={"Home page"}
-                          variant="standard"
-                          type="home_page"
-                          onChange={formik.handleChange}
-                          value={formik.values.home_page}
-                        />
-                        <FormInput
-                          id="comment"
-                          required
-                          label={"Comment"}
-                          variant="standard"
-                          type="comment"
-                          onChange={formik.handleChange}
-                          value={formik.values.comment}
-                        />
-                        <CaptchaTest />
-                      </Form>
-                    </Box>
-                  </Modal>
                   <ReplysList commentId={item.id} />
                 </AccordionDetails>
               </Accordion>

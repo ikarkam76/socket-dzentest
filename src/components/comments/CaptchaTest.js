@@ -11,19 +11,18 @@ const CaptchaTest = () => {
 
     useEffect(() => {
      loadCaptchaEnginge(6);
-    })
+    },[])
     
   const doSubmit = () => {
     let user_captcha = document.getElementById("user_captcha_input").value;
 
     if (validateCaptcha(user_captcha) === true) {
         setIsDisabled(false);
-      loadCaptchaEnginge(6);
+        loadCaptchaEnginge(6);
         document.getElementById("user_captcha_input").value = "";
-        
     } else {
-      alert("Captcha Does Not Match");
-      document.getElementById("user_captcha_input").value = "";
+        alert("Captcha Does Not Match");
+        document.getElementById("user_captcha_input").value = "";
     }
   };
 
