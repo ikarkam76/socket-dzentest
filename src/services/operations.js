@@ -43,7 +43,7 @@ export const getList = async () => {
 
 export const getFiles = async (name) => {
   try {
-    const response = await axios.post("/api/files", name, {
+    const response = await axios.post("/api/get/files", name, {
       responseType: "blob",
     });
     const imgUrl = URL.createObjectURL(response.data);
