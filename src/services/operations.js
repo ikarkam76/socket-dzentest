@@ -1,4 +1,5 @@
-import axios from 'axios'
+import axios from 'axios';
+import { Report } from "notiflix/build/notiflix-report-aio";
 
 const BASE_URL = process.env.BASE_URL;
 axios.defaults.baseURL = BASE_URL;
@@ -9,16 +10,16 @@ export const getComments = async () => {
         const { data } = await axios.get('/api');
        return data.result;
     } catch (err) {
-        console.log((err.message));
+        console.log(err.message);
     }
 };
 
 export const sendComments = async (commentToSend) => {
   try {
         await axios.post('/api', commentToSend);
-        console.log('comment sended!');
+        Report.success("Success!", "You comment sended successfully.", "Okay");
     } catch (err) {
-        console.log(err.message);
+        Report.failure("Something went wrong", err.message, "Okay");
     }
 }
 
@@ -56,9 +57,9 @@ export const getFiles = async (name) => {
 export const sendReply = async (replyToSend) => {
   try {
     await axios.post("/api/reply", replyToSend);
-    console.log("reply sended!");
+    Report.success("Success!", "You reply sended successfully.", "Okay");
   } catch (err) {
-    console.log(err.message);
+    Report.failure("Something went wrong", err.message, "Okay");
   }
 };
 

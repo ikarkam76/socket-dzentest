@@ -1,3 +1,4 @@
+import { Diversity1Rounded } from "@mui/icons-material";
 import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
 import { NavLink } from "react-router-dom";
 
@@ -6,13 +7,17 @@ export const CommentsBar = () => {
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
           <Toolbar>
+            <NavLink
+              style={{ textDecoration: "none", color: "inherit" }}
+              to={"/"}
+            >
+              <Diversity1Rounded
+                fontSize="large"
+                sx={{ marginRight: "15px" }}
+              />
+            </NavLink>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              <NavLink
-                style={{ textDecoration: "none", color: "inherit" }}
-                to={"/"}
-              >
-                Comments App
-              </NavLink>
+              Comments App
             </Typography>
             <Button variant="outlined" color="inherit">
               <NavLink

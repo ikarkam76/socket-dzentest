@@ -5,9 +5,11 @@ import {
   validateCaptcha,
 } from "react-simple-captcha";
 import { Button } from "@mui/material";
+import { Report } from "notiflix/build/notiflix-report-aio";
+
 
 const CaptchaTest = () => {
-  const [isDisabled, setIsDisabled] = useState(true);
+  const [isDisabled, setIsDisabled] = useState(true)
 
     useEffect(() => {
      loadCaptchaEnginge(6);
@@ -17,11 +19,12 @@ const CaptchaTest = () => {
     let user_captcha = document.getElementById("user_captcha_input").value;
 
     if (validateCaptcha(user_captcha) === true) {
-        setIsDisabled(false);
-        loadCaptchaEnginge(6);
+      setIsDisabled(false);
         document.getElementById("user_captcha_input").value = "";
     } else {
-        alert("Captcha Does Not Match");
+      setIsDisabled(true);
+      Report.failure('Captcha does`t match', 'Try again', 'Okay');
+              loadCaptchaEnginge(6);
         document.getElementById("user_captcha_input").value = "";
     }
   };
@@ -50,16 +53,15 @@ return (
             <Button
               onClick={() => doSubmit()}
               variant="contained"
-              type="submit"
               sx={{ marginTop: "5px" }}
             >
-              Submit
+              Verify
             </Button>
             <Button
               variant="contained"
+              sx={{ marginTop: "5px", marginLeft: "20px"}}
               type="submit"
               disabled={isDisabled}
-              sx={{ marginTop: "5px", marginLeft: "15px" }}
             >
               Send
             </Button>
