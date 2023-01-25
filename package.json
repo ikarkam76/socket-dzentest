@@ -17,6 +17,7 @@
     "react-scripts": "5.0.1",
     "socket.io-client": "^4.5.4",
     "uuid": "^9.0.0",
+    "yet-another-react-lightbox": "^2.2.7",
     "yup": "^0.32.11"
   },
   "scripts": {

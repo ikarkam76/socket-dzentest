@@ -1,5 +1,6 @@
 import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
 import { NavLink } from "react-router-dom";
+import { ImagesView } from "./images/ImagesView";
 
 export const CommentsBar = () => {
     return (
@@ -14,14 +15,7 @@ export const CommentsBar = () => {
                 Comments App
               </NavLink>
             </Typography>
-            <Button variant="outlined" color="inherit">
-              <NavLink
-                style={{ textDecoration: "none", color: "inherit" }}
-                to={"/images"}
-              >
-                Images
-              </NavLink>
-            </Button>
+            <ImagesView />
             <Button variant="outlined" color="inherit">
               <NavLink
                 style={{ textDecoration: "none", color: "inherit" }}

@@ -1,29 +1,39 @@
-import { ImageList, ImageListItem } from "@mui/material";
 import { useEffect, useState } from "react";
-import { getFiles } from "../../services/operations";
+import { getFiles, getList } from "../../services/operations";
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
+import { Button } from "@mui/material";
 
 export const ImagesView = () => {
+  const [open, setOpen] = useState(false);
   const [images, setImages] = useState([]);
 
-  useEffect(() => {
-    getFiles().then((res) => setImages([res]));
-  }, [])
+    useEffect( () => {
+      createFiles();
+    }, [])
+
+    const createFiles = async () => {
+      try {
+        const files = await getList();
+        files.map(name => getFiles({ name: name}).then(res => setImages(prev => [...prev, {src: res}])))
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
   
   return (
     <>
-      <img src={images[0]} alt="foto" />
-      {/* <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
-        {images.map((item, i) => (
-          <ImageListItem key={i}>
-            <img
-              src={`${item}?w=164&h=164&fit=crop&auto=format`}
-              srcSet={`${item}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-              alt="foto"
-              loading="lazy"
-            />
-          </ImageListItem>
-        ))}
-      </ImageList> */}
+      <Button
+        variant="outlined"
+        color="inherit"
+        onClick={() => setOpen(true)}
+      >
+        Images
+      </Button>
+      <Lightbox
+        open={open}
+        close={() => setOpen(false)}
+        slides={images} />
     </>
   );
 }
