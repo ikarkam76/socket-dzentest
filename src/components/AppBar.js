@@ -30,13 +30,6 @@ export const CommentsBar = () => {
                 Comments
               </NavLink>
             </Button>
-            <Button
-              variant="outlined"
-              color="inherit"
-              sx={{ marginLeft: "20px" }}
-            >
-              Contacts
-            </Button>
           </Toolbar>
         </AppBar>
       </Box>

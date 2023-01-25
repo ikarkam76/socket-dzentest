@@ -28,7 +28,10 @@ export const ImagesView = () => {
         <ImageList variant="masonry" cols={3} gap={8}>
           {images.map((image, i) => (
             <Card sx={{ maxWidth: 345 }} key={i}>
-              <CardActionArea onClick={() => setIsOpen(true)}>
+              <CardActionArea onClick={() => {
+                setIsOpen(true);
+                setPhotoIndex(i);
+              }}>
                 <ImageListItem>
                   <img src={image} alt={image} loading="lazy" />
                 </ImageListItem>
