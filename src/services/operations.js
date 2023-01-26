@@ -65,17 +65,18 @@ export const getFiles = async (name) => {
 
 export const uploadFile = async (file, id) => {
   try {
+    console.log('oper', file, id);
     const formData = new FormData();
     formData.append("file", file);
+    formData.append("parentId", id);
     const [name, ext] = file.name.split(".");
     if (ext === "txt") {
-      const { data } = await axios.post("/api/upload/file", formData);
-      await axios.post("/api/files", { file: data.file, parentId: id });
+      await axios.post("/api/upload/file", formData);
     } else {
-      const { data } = await axios.post("/api/upload/image", formData);
-      await axios.post("/api/images", { image: data.image, parentId: id });
+      await axios.post("/api/upload/image", formData);
     }
   } catch (error) {
+    console.log(error);
     Report.failure("Something went wrong", error.message, "Okay");
   }
 }
