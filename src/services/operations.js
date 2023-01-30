@@ -7,11 +7,29 @@ axios.defaults.withCredentials = true;
 
 export const getComments = async () => {
     try {
-        const { data } = await axios.get('/api');
+      const { data } = await axios.get('/api');
        return data.result;
     } catch (err) {
         console.log(err.message);
     }
+};
+
+export const getReplys = async () => {
+  try {
+    const { data } = await axios.get("/api/reply");
+    return data.result;
+  } catch (err) {
+    console.log(err.message);
+  }
+};
+
+export const getImages = async () => {
+  try {
+    const { data } = await axios.get("/api/images");
+    return data;
+  } catch (error) {
+    console.log(error.message);
+  }
 };
 
 export const sendComments = async (commentToSend) => {
@@ -32,40 +50,8 @@ export const sendReply = async (replyToSend) => {
   }
 };
 
-export const getReplys = async () => {
-  try {
-    const { data } = await axios.get("/api/reply");
-    return data.result;
-  } catch (err) {
-    console.log(err.message);
-  }
-};
-
-export const getList = async () => {
-  try {
-    const {data} = await axios.get("/api/list");
-    return data;
-  } catch (error) {
-    console.log(error.message);
-  }
-}
-
-
-export const getFiles = async (name) => {
-  try {
-    const response = await axios.post("/api/get/files", name, {
-      responseType: "blob",
-    });
-    const imgUrl = URL.createObjectURL(response.data);
-    return imgUrl;
-  } catch (error) {
-    console.log(error.message);
-  }
-}
-
 export const uploadFile = async (file, id) => {
   try {
-    console.log('oper', file, id);
     const formData = new FormData();
     formData.append("file", file);
     formData.append("parentId", id);
@@ -75,8 +61,10 @@ export const uploadFile = async (file, id) => {
     } else {
       await axios.post("/api/upload/image", formData);
     }
+    Report.success("File uploaded!", `Name: ${name}`, "Okay");
   } catch (error) {
     console.log(error);
     Report.failure("Something went wrong", error.message, "Okay");
   }
-}
+};
+

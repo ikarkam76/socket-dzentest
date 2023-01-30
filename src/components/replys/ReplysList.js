@@ -33,7 +33,8 @@ export const ReplysList = ({ commentId }) => {
               return (
                 <Item key={i}>
                   <Box sx={{ width: "100%", backgroundColor: "#90caf9" }}>
-                    {item.user_name} {item.time}
+                    {item.user_name}{" "}
+                    {item.time.toLocaleString().slice(0, 19).replace("T", " ")}
                   </Box>
                   {item.comment}
                 </Item>

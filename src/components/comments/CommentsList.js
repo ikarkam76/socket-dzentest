@@ -33,7 +33,7 @@ export const CommentsList = () => {
   const [commentId, setCommentId] = useState('');
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
+  
   useEffect(() => {
     getComments().then((res) => setComments(res));
           socket.on("comment", (msg) => {
@@ -51,7 +51,7 @@ export const CommentsList = () => {
       validationSchema: commentSchema,
       onSubmit: (values, { resetForm }) => {
         const parentId = commentId;
-        const time = new Date();
+        const time = new Date().toISOString().slice(0, 19).replace("T", " ");
         const replyToSend = { ...values, ...{ time, parentId } };
         socket.emit('replys', replyToSend);
         sendReply(replyToSend);
@@ -143,7 +143,10 @@ export const CommentsList = () => {
                     {user_name}
                   </Typography>
                   <Typography style={{ marginLeft: "10px" }}>
-                    {time.toLocaleString()}
+                    {time
+                      .toLocaleString()
+                      .slice(0, 19)
+                      .replace("T", " ")}
                   </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
