@@ -53,7 +53,7 @@ export const sendReply = async (replyToSend) => {
 export const uploadFile = async (file, id) => {
   try {
     const formData = new FormData();
-    formData.append("file", file);
+    formData.append("file", file, Date.now() + '_' + file.name);
     formData.append("parentId", id);
     const [name, ext] = file.name.split(".");
     if (ext === "txt") {
