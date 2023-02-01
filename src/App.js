@@ -3,7 +3,7 @@ import { SocketContext, socket } from "./socket";
 import { Comments } from "./components/comments/Comments";
 import { CommentsBar } from "./components/AppBar";
 import { CommentsTable } from './components/comments/CommentsTable'
-import { ImagesView } from "./components/images/ImagesView";
+import { ImagesView } from "./components/imagesLightbox/ImagesView";
 
 
 function App() {

@@ -1,17 +1,27 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
+import ImageViewer from "react-simple-image-viewer";
 import { getImages } from "../../services/operations";
-import Lightbox from "react-image-lightbox";
-import "react-image-lightbox/style.css";
 import { Box, Card, CardActionArea, ImageList, ImageListItem } from '@mui/material';
 
 export const ImagesView = () => {
-  const [photoIndex, setPhotoIndex] = useState(0);
-  const [isOpen, setIsOpen] = useState(false);
+  const [currentImage, setCurrentImage] = useState(0);
+  const [isViewerOpen, setIsViewerOpen] = useState(false);
   const [images, setImages] = useState([]);
 
   useEffect(() => {
     getImages().then(res => res.result.map(item => setImages(prev => [...prev, item.image])));
   }, [])
+
+  const openImageViewer = useCallback((index) => {
+    setCurrentImage(index);
+    setIsViewerOpen(true);
+  }, []);
+
+  const closeImageViewer = () => {
+    setCurrentImage(0);
+    setIsViewerOpen(false);
+  };
+
   return (
     <>
       <Box sx={{ width: "100%" }}>
@@ -20,8 +30,7 @@ export const ImagesView = () => {
             <Card sx={{ maxWidth: 345 }} key={i}>
               <CardActionArea
                 onClick={() => {
-                  setIsOpen(true);
-                  setPhotoIndex(i);
+                  openImageViewer(i);
                 }}
               >
                 <ImageListItem>
@@ -37,18 +46,13 @@ export const ImagesView = () => {
           ))}
         </ImageList>
       </Box>
-      {isOpen && (
-        <Lightbox
-          mainSrc={images[photoIndex]}
-          nextSrc={images[(photoIndex + 1) % images.length]}
-          prevSrc={images[(photoIndex + images.length - 1) % images.length]}
-          onCloseRequest={() => setIsOpen(false)}
-          onMovePrevRequest={() =>
-            setPhotoIndex((prev) => (prev + images.length - 1) % images.length)
-          }
-          onMoveNextRequest={() =>
-            setPhotoIndex((prev) => (prev + 1) % images.length)
-          }
+      {isViewerOpen && (
+        <ImageViewer
+          src={images}
+          currentIndex={currentImage}
+          disableScroll={false}
+          closeOnClickOutside={true}
+          onClose={closeImageViewer}
         />
       )}
     </>
