@@ -128,9 +128,7 @@ export const CommentsList = () => {
       </Modal>
 
       <List>
-        {!comments
-        ? <h1>No comments</h1>
-        :comments.map((item, i) => {
+        {comments[0] && comments.map((item, i) => {
           const { id, user_name, time, comment } = item;
           return (
             <ListItem key={id}>
