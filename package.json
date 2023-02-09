@@ -33,7 +33,7 @@
       "react-app"
     ]
   },
-  "proxy": "http://localhost:8080",
+  "proxy": "https://comments-backend-mongo.onrender.com",
   "browserslist": {
     "production": [
       ">0.2%",
