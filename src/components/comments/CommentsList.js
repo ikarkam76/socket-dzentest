@@ -1,6 +1,6 @@
 import { Box, List, ListItem, Accordion, AccordionSummary, Typography,AccordionDetails, IconButton, Modal } from "@mui/material";
 import { useState, useContext, useEffect } from "react";
-import { getComments } from "../../services/operations";
+import { getComments, getReplys } from "../../services/operations";
 import { useFormik } from "formik";
 import { sendReply } from "../../services/operations";
 import { commentSchema } from "../../services/validation";
@@ -8,7 +8,7 @@ import { Form, FormInput } from "./Form.styled";
 
 import { SocketContext } from "../../socket";
 import { AccountCircleRounded, ReplyRounded, ExpandMoreRounded } from "@mui/icons-material";
-import { ReplysList } from "../replys/ReplysList";
+import { RepliesList } from "../replys/ReplysList";
 import CaptchaTest from "./CaptchaTest";
 
 
@@ -28,6 +28,7 @@ const style = {
 export const CommentsList = () => {
   const socket = useContext(SocketContext);
   const [comments, setComments] = useState([]);
+  const [replys, setReplys] = useState([]);
   const [open, setOpen] = useState(false);
   const [expanded, setExpanded] = useState(true);
   const [commentId, setCommentId] = useState('');
@@ -36,8 +37,12 @@ export const CommentsList = () => {
   
   useEffect(() => {
     getComments().then((res) => setComments(res));
+    getReplys().then((res) => setReplys(res));
           socket.on("comment", (msg) => {
             setComments(prev => [...prev, msg]);
+          });
+          socket.on("replys", (msg) => {
+            setReplys((prev) => [...prev, msg]);
           });
   });
   
@@ -123,7 +128,9 @@ export const CommentsList = () => {
       </Modal>
 
       <List>
-        {comments.map((item, i) => {
+        {!comments[0]
+        ? <h1>No comments</h1>
+        :comments.map((item, i) => {
           const { id, user_name, time, comment } = item;
           return (
             <ListItem key={id}>
@@ -159,7 +166,7 @@ export const CommentsList = () => {
                   >
                     <ReplyRounded />
                   </IconButton>
-                  <ReplysList commentId={item.id} />
+                  <RepliesList commentId={item.id} replies={replys} />
                 </AccordionDetails>
               </Accordion>
             </ListItem>

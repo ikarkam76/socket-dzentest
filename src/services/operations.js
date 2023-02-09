@@ -1,14 +1,14 @@
 import axios from 'axios';
 import { Report } from "notiflix/build/notiflix-report-aio";
 
-// const BASE_URL = process.env.BASE_URL;
-// axios.defaults.baseURL = BASE_URL;
-// axios.defaults.withCredentials = true;
+const BASE_URL = process.env.BASE_URL;
+axios.defaults.baseURL = BASE_URL;
+axios.defaults.withCredentials = true;
 
 export const getComments = async () => {
     try {
       const { data } = await axios.get(
-        "https://commentsappbackend.onrender.com/api"
+        '/api'
       );
        return data.result;
     } catch (err) {
@@ -19,7 +19,7 @@ export const getComments = async () => {
 export const getReplys = async () => {
   try {
     const { data } = await axios.get(
-      "https://commentsappbackend.onrender.com/api/reply"
+      "/api/reply"
     );
     return data.result;
   } catch (err) {
@@ -30,7 +30,7 @@ export const getReplys = async () => {
 export const getImages = async () => {
   try {
     const { data } = await axios.get(
-      "https://commentsappbackend.onrender.com/api/images"
+      "/api/images"
     );
     return data;
   } catch (error) {
@@ -41,7 +41,7 @@ export const getImages = async () => {
 export const sendComments = async (commentToSend) => {
   try {
         await axios.post(
-          "https://commentsappbackend.onrender.com/api",
+          "/api",
           commentToSend
         );
         Report.success("Success!", "You comment sended successfully.", "Okay");
@@ -53,7 +53,7 @@ export const sendComments = async (commentToSend) => {
 export const sendReply = async (replyToSend) => {
   try {
     await axios.post(
-      "https://commentsappbackend.onrender.com/api/reply",
+      "/api/reply",
       replyToSend
     );
     Report.success("Success!", "You reply sended successfully.", "Okay");
@@ -69,9 +69,9 @@ export const uploadFile = async (file, id) => {
     formData.append("parentId", id);
     const [name, ext] = file.name.split(".");
     if (ext === "txt") {
-      await axios.post("https://commentsappbackend.onrender.com/api/upload/file", formData);
+      await axios.post("/api/file", formData);
     } else {
-      await axios.post("https://commentsappbackend.onrender.com/api/upload/image", formData);
+      await axios.post("/api/image", formData);
     }
     Report.success("File uploaded!", `Name: ${name}`, "Okay");
   } catch (error) {

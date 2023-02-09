@@ -1,6 +1,5 @@
 import { Box, Stack,Paper } from '@mui/material';
-import { useState, useEffect, useContext } from 'react';
-import { getReplys } from '../../services/operations';
+import {  useEffect, useContext } from 'react';
 import { styled } from "@mui/material/styles";
 import { SocketContext } from '../../socket';
 
@@ -12,24 +11,20 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-export const ReplysList = ({ commentId }) => {
+export const RepliesList = ({ commentId, replies }) => {
   const socket = useContext(SocketContext);
-  const [replys, setReplys] = useState([]);
-  const replysList = replys.filter((item) => item.parentId === commentId);
+  const repliesList = replies.filter((item) => item.parentId === commentId);
 
     useEffect(() => {
-        getReplys()
-          .then((res) => setReplys(res));
-      socket.on('replys', (msg) => {
-        setReplys(prev => [...prev, msg])
-      })
+        
+      
     }, [socket]);
 
     return (
       <Box sx={{ width: "100%" }}>
         <Stack>
-          {replysList[0] && (
-            replysList.map((item, i) => {
+          {repliesList[0] && (
+            repliesList.map((item, i) => {
               return (
                 <Item key={i}>
                   <Box sx={{ width: "100%", backgroundColor: "#90caf9" }}>
