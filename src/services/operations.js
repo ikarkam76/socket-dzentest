@@ -44,7 +44,6 @@ export const sendComments = async (commentToSend) => {
           "/api",
           commentToSend
         );
-        Report.success("Success!", "You comment sended successfully.", "Okay");
     } catch (err) {
         Report.failure("Something went wrong", err.message, "Okay");
     }
@@ -56,7 +55,6 @@ export const sendReply = async (replyToSend) => {
       "/api/reply",
       replyToSend
     );
-    Report.success("Success!", "You reply sended successfully.", "Okay");
   } catch (err) {
     Report.failure("Something went wrong", err.message, "Okay");
   }
@@ -73,7 +71,6 @@ export const uploadFile = async (file, id) => {
     } else {
       await axios.post("/api/image", formData);
     }
-    Report.success("File uploaded!", `Name: ${name}`, "Okay");
   } catch (error) {
     console.log(error);
     Report.failure("Something went wrong", error.message, "Okay");
