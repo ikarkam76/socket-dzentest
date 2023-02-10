@@ -36,7 +36,7 @@ export const CommentsList = () => {
   const handleClose = () => setOpen(false);
   
   useEffect(() => {
-    getComments().then((res) => setComments(res));
+    getComments().then((res) => console.log(res));
     getReplys().then((res) => setReplys(res));
           socket.on("comment", (msg) => {
             setComments(prev => [...prev, msg]);
@@ -127,7 +127,9 @@ export const CommentsList = () => {
       </Modal>
 
       <List>
-        {comments && (comments.map((item, i) => {
+        {!comments[0]
+        ? (<h2>No comments</h2>)
+        :(comments.map((item, i) => {
           const { id, user_name, time, comment } = item;
           return (
             <ListItem key={id}>
