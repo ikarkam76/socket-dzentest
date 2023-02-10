@@ -36,8 +36,8 @@ export const CommentsList = () => {
   const handleClose = () => setOpen(false);
   
   useEffect(() => {
-    getComments().then((res) => setComments(res));
-    getReplys().then((res) => setReplys(res));
+    getComments().then((res) => setComments((prev) => [...prev, res]));
+    getReplys().then((res) => setReplys((prev) => [...prev, res]));
           socket.on("comment", (msg) => {
             setComments(prev => [...prev, msg]);
           });
@@ -64,7 +64,6 @@ export const CommentsList = () => {
         resetForm();
       },
     });
-
 
   return (
     <Box>
@@ -128,7 +127,7 @@ export const CommentsList = () => {
       </Modal>
 
       <List>
-        {comments && comments.map((item, i) => {
+        {comments.map((item, i) => {
           const { id, user_name, time, comment } = item;
           return (
             <ListItem key={id}>
