@@ -36,7 +36,7 @@ export const CommentsList = () => {
   const handleClose = () => setOpen(false);
   
   useEffect(() => {
-    getComments().then((res) => console.log(res));
+    getComments().then((res) => setComments(res));
     getReplys().then((res) => setReplys(res));
           socket.on("comment", (msg) => {
             setComments(prev => [...prev, msg]);
