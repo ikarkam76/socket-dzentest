@@ -128,7 +128,7 @@ export const CommentsList = () => {
       </Modal>
 
       <List>
-        {comments[0] && comments.map((item, i) => {
+        {comments && comments.map((item, i) => {
           const { id, user_name, time, comment } = item;
           return (
             <ListItem key={id}>
